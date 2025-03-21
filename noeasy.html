@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title id="poemTitle">随机诗歌</title>
+    <style>
+        body {
+            font-family: "宋体", SimSun, serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .poem-container {
+            text-align: center;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .poem-content {
+            line-height: 2.5em;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="poem-container">
+        <h1 id="title"></h1>
+        <div class="poem-content" id="poem"></div>
+    </div>
+
+    <script>
+        // 诗名组件库
+        const poemTitles = [
+            "夜雨寄怀", 
+            "秋日偶得",
+            "江畔独步",
+            "山居小记",
+            "月下思友",
+            "春晓偶书",
+            "归园田居"
+        ];
+
+        // 诗歌内容词库
+        const poetryWords = {
+            weather: ["细雨", "斜阳", "秋风", "明月", "残雪", "孤云", "晨雾"],
+            scenery: ["青山", "碧水", "孤舟", "长亭", "古道", "寒梅", "落花"],
+            action: ["独酌", "遥望", "低吟", "漫步", "静听", "闲坐", "凝思"],
+            feeling: ["愁绪", "离情", "归心", "幽梦", "清欢", "孤寂", "悠然"]
+        };
+
+        // 生成随机诗歌
+        function generatePoem() {
+            // 随机选择诗名
+            const title = poemTitles[Math.floor(Math.random() * poemTitles.length)];
+            
+            // 生成四句诗
+            const verses = [];
+            for (let i = 0; i < 4; i++) {
+                const verse = [
+                    poetryWords.weather[Math.floor(Math.random() * poetryWords.weather.length)],
+                    poetryWords.scenery[Math.floor(Math.random() * poetryWords.scenery.length)],
+                    poetryWords.action[Math.floor(Math.random() * poetryWords.action.length)],
+                    poetryWords.feeling[Math.floor(Math.random() * poetryWords.feeling.length)]
+                ].join(" ");
+                verses.push(verse);
+            }
+
+            // 更新页面内容
+            document.title = title + " | 随机生成";
+            document.getElementById('title').textContent = title;
+            document.getElementById('poem').innerHTML = verses.join("<br>");
+        }
+
+        // 页面加载时生成诗歌
+        window.onload = generatePoem;
+    </script>
+</body>
+</html>
